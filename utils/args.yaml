@@ -1,0 +1,15 @@
+min_lr: 0.000100000000            # initial learning rate
+max_lr: 0.010000000000            # maximum learning rate
+momentum: 0.9000000000            # SGD momentum/Adam beta1
+weight_decay: 0.000500            # optimizer weight decay
+warmup_epochs: 5.00000            # warmup epochs
+hsv_h: 0.0150000000000            # image HSV-Hue augmentation (fraction)
+hsv_s: 0.7000000000000            # image HSV-Saturation augmentation (fraction)
+hsv_v: 0.4000000000000            # image HSV-Value augmentation (fraction)
+face_anchors:
+  strides: [ 8, 16, 32 ]
+  ratios: [ 1.0 ]
+  scales: [ 1, 2 ]
+  sizes: [ 16, 64, 256 ]
+names:
+  0: Face
