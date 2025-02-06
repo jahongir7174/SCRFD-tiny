@@ -312,7 +312,14 @@ def demo(args, params):
                                    radius=3, color=(0, 0, 255), thickness=-1, lineType=cv2.LINE_AA)
 
             cv2.imshow(winname='Frame', mat=frame)
-            cv2.waitKey(20)
+            # Press Q on keyboard to  exit
+            if cv2.waitKey(25) & 0xFF == ord('q'):
+                break
+            # Break the loop
+        else:
+            break
+    # Closes all the frames
+    cv2.destroyAllWindows()
 
 
 def profile(args, params):
