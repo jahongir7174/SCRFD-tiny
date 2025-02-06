@@ -1008,6 +1008,9 @@ class ComputeLoss:
 
 
 class NMS:
+    sizes = None
+    anchors = None
+
     def __init__(self, params, conf_threshold=0.02):
         self.nc = 1
         self.nk = 5
@@ -1024,7 +1027,9 @@ class NMS:
         n = x_cls[0].shape[0]
         device = x_cls[0].device
         sizes = [x_cls[i].shape[-2:] for i in range(num_levels)]
-        anchors = self.anchor_generator.make_anchors(sizes, device=device)
+        if (self.sizes != sizes) and (self.anchors is None):
+            self.sizes = sizes
+            self.anchors = self.anchor_generator.make_anchors(sizes, device=device)
 
         results = []
         for j in range(n):
@@ -1035,10 +1040,10 @@ class NMS:
             y_kpt = []
             y_box = []
             y_cls = []
-            assert len(x_cls) == len(x_box) == len(anchors)
+            assert len(x_cls) == len(x_box) == len(self.anchors)
 
             for cls, box, kpt, stride, anchor in zip(x_cls_list, x_box_list, x_kpt_list,
-                                                     self.anchor_generator.strides, anchors):
+                                                     self.anchor_generator.strides, self.anchors):
                 assert cls.size()[-2:] == box.size()[-2:]
                 assert stride[0] == stride[1]
 
